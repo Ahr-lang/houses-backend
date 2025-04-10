@@ -1,14 +1,23 @@
-export class HouseController {
+import { PostgresService } from '../../../postgress/postgresService';
+import { House } from '../../types/db/house';
 
-    dbService: FakeService
-    
-    constructor(){
-        this.dbService = new FakeService();
+export class HouseController {
+    private dbService: PostgresService;
+
+    constructor(dbService: PostgresService) {
+        this.dbService = dbService;
     }
 
-    async getHousesByType(tipo:string,minprice:number,maxprice:number): House[]{
-       const dbService = new FakeService();
-       const houses = this.dbService.getHouses(tipo,minprice,maxprice)
-       return houses
+    sum(a: number, b: number): number {
+        return a + b;
+    }
+
+    async getHouses(type?: string, minPrice?: number, maxPrice?: number): Promise<House[]> {
+        return this.dbService.getHouses(type, minPrice, maxPrice);
+    }
+
+    async getHouseById(id: number): Promise<House | null> {
+        const houses = await this.dbService.getHouseById(id);
+        return houses.length > 0 ? houses[0] : null;
     }
 }
