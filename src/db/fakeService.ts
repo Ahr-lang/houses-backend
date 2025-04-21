@@ -23,12 +23,12 @@ const FAKE_HOUSES: House[] = [
 ];
 
 export class FakeService implements DatabaseService {
-    async getHouses(tipo?: string, minprice?: number, maxprice?: number): Promise<House[]> {
+    async getHouses(type?: string, minPrice?: number, maxPrice?: number): Promise<House[]> {
         return FAKE_HOUSES.filter(house => {
-            const matchesTipo = !tipo || house.tipo === tipo;
-            const matchesMinPrice = !minprice || house.price >= minprice;
-            const matchesMaxPrice = !maxprice || house.price <= maxprice;
-            return matchesTipo && matchesMinPrice && matchesMaxPrice;
+            const matchesType = !type || house.tipo === type;
+            const matchesMinPrice = !minPrice || house.price >= minPrice;
+            const matchesMaxPrice = !maxPrice || house.price <= maxPrice;
+            return matchesType && matchesMinPrice && matchesMaxPrice;
         });
     }
 

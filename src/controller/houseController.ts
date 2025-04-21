@@ -1,15 +1,11 @@
-import { PostgresService } from '../../../postgress/postgresService';
+import { DatabaseService } from '../../types/db/databaseService';
 import { House } from '../../types/db/house';
 
 export class HouseController {
-    private dbService: PostgresService;
+    private dbService: DatabaseService;
 
-    constructor(dbService: PostgresService) {
+    constructor(dbService: DatabaseService) {
         this.dbService = dbService;
-    }
-
-    sum(a: number, b: number): number {
-        return a + b;
     }
 
     async getHouses(type?: string, minPrice?: number, maxPrice?: number): Promise<House[]> {
@@ -17,7 +13,6 @@ export class HouseController {
     }
 
     async getHouseById(id: number): Promise<House | null> {
-        const houses = await this.dbService.getHouseById(id);
-        return houses.length > 0 ? houses[0] : null;
+        return this.dbService.getHouseById(id);
     }
 }
